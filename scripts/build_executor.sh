@@ -4,12 +4,12 @@
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "The script directory is: $scriptDirectory"
 
-version="0.2"
-imageName="taskweavercontainers/taskweaver-executor"
+version="0.1"
+imageName="clearlovex/taskweaver-executor-pyshark"
 imageFullName="$imageName:$version"
 
 taskweaverPath="$scriptDirectory/../taskweaver"
-dockerfilePath="$scriptDirectory/../docker/ces_container/Dockerfile"
+dockerfilePath="$scriptDirectory/../docker/pyshark_container/Dockerfile"
 contextPath="$scriptDirectory/../"
 
 if [ -d "$taskweaverPath" ]; then
@@ -22,7 +22,7 @@ else
 fi
 
 # Build the Docker image
-docker build -t "$imageFullName" -f "$dockerfilePath" "$contextPath"
+docker build --no-cache -t "$imageFullName" -f "$dockerfilePath" "$contextPath"
 
 # Tag the image
 docker tag "$imageFullName" "$imageName:latest"

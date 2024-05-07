@@ -144,7 +144,7 @@ class Environment:
             except docker.errors.DockerException as e:
                 raise docker.errors.DockerException(f"Failed to connect to Docker daemon: {e}. ")
 
-            self.image_name = "taskweavercontainers/taskweaver-executor:latest"
+            self.image_name = "clearlovex/taskweaver-executor-pyshark:latest"
             try:
                 local_image = self.docker_client.images.get(self.image_name)
                 registry_image = self.docker_client.images.get_registry_data(self.image_name)
