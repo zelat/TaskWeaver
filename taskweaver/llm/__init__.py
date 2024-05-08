@@ -12,6 +12,7 @@ from taskweaver.llm.base import (
     LLMModuleConfig,
     LLMServiceConfig,
 )
+from taskweaver.llm.deepseek import DeepSeekService
 from taskweaver.llm.google_genai import GoogleGenAIService
 from taskweaver.llm.groq import GroqService, GroqServiceConfig
 from taskweaver.llm.mock import MockApiService
@@ -33,6 +34,7 @@ llm_completion_config_map = {
     "qwen": QWenService,
     "zhipuai": ZhipuAIService,
     "groq": GroqService,
+    "deepseek": DeepSeekService,
 }
 
 # TODO
@@ -66,6 +68,8 @@ class LLMApi(object):
             self._set_completion_service(ZhipuAIService)
         elif self.config.api_type == "groq":
             self._set_completion_service(GroqService)
+        elif self.config.api_type == "deepseek":
+            self._set_completion_service(DeepSeekService)
         else:
             raise ValueError(f"API type {self.config.api_type} is not supported")
 
@@ -81,6 +85,8 @@ class LLMApi(object):
             self._set_embedding_service(QWenService)
         elif self.config.embedding_api_type == "zhipuai":
             self._set_embedding_service(ZhipuAIService)
+        elif self.config.embedding_api_type == "deepseek":
+            self._set_embedding_service(DeepSeekService)
         elif self.config.embedding_api_type == "azure_ml":
             self.embedding_service = PlaceholderEmbeddingService(
                 "Azure ML does not support embeddings yet. Please configure a different embedding API.",
